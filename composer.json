@@ -1,0 +1,25 @@
+{
+    "name": "slim-mvc-skeleton",
+    "description": "This skeleton provides a basic MVC and REST.",
+    "version": "v1.0",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/botalaszlo/slim--mvc-skeleton.git"
+    },
+    "authors": [
+        {
+            "name": "Bóta László",
+            "email": "bota.laszlo.dev@outlook.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+        "php": ">=5.3.0",
+        "slim/slim": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\" : "app/"
+        }
+    }
+}
