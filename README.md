@@ -54,3 +54,33 @@ In the `app/configs/database.php` you can set up the **database settings**.
 ###Configuring the Slim object
 
 In the `app/configs/slim.php` you can set up the **Slim object**.
+
+##Example
+
+###Rest
+Do not forget, these are just examples, you can modify!
+Request header example
+```
+Host: localhost
+Content-Type: application/json
+Cache-Control: no-cache
+```
+####Rest uri-s
+| HTTP methods |	URI |	Description |
+|--------------|-----|-------------|
+| GET | /api/contents |	Listing the contents. |
+| GET |	/api/contents/:id |	Selecting a content by id number.|
+| POST |	/api/contents |	Creating a contents. | 
+| PUT |	/api/contents/:id |	Modifing a content by id number. |
+| DELETE |	/api/contents/:id |	Deleting a content by id |
+
+####Example data for post and put operations:
+```
+{
+   "data": 
+     {
+       "title":"Title Example",
+       "content":"Title Content for the application."
+     }
+}
+```
