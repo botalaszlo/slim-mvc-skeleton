@@ -7,47 +7,29 @@
  * @version 1.0
  */
 
-use app\controllers\SiteController;
-use app\controllers\RestController;
-
-\Slim\Route::setDefaultConditions(array(
-    'id' => '\d+'
-));
-
-$app->get('/', function() {
-	$siteController = new SiteController();
-	$siteController->index();
+$app->get('/', function($request, $response, $args) {
+    return $this->view->render($response, '/site/index.php');
 });
-$app->get('/doc', function() {
-	$siteController = new SiteController();
-	$siteController->documentation();
+$app->get('/doc', function($request, $response, $args) {
+    return $this->view->render($response, '/site/doc.php');
 });
 
 // API group
 $app->group('/api', function () use ($app) {
-    // Sample rest uri
-    $app->group('/contents', function () use ($app) {
+    // Sample URI-s for the content controller to show how use routes in Slim framework.
+    // This should be removed for production environment.
+    $app->group('/contents', function () {
 
-        $restController = new RestController();
+        $this->get('', 'app\controllers\ContentController:getAllItems');
+        $this->get('/', 'app\controllers\ContentController:getAllItems');
 
-        $app->get('/', function () use ($restController) {
-            $restController->getAllItem();
-        })->via('get');
+        $this->get('/{id}', 'app\controllers\ContentController:getItem');
 
-        $app->get('/:id', function ($id) use ($restController) {
-            $restController->getItem($id);
-        })->via('get');
+        $this->post('', 'app\controllers\ContentController:createItem');
+        $this->post('/', 'app\controllers\ContentController:createItem');
 
-        $app->post('/', function () use ($restController) {
-            $restController->createItem();
-        })->via('post');
+        $this->put('/{id}', 'app\controllers\ContentController:editItem');
 
-        $app->put('/:id', function ($id) use ($restController) {
-            $restController->editItem($id);
-        })->via('put');
-
-        $app->delete('/:id', function ($id) use ($restController) {
-            $restController->deleteItem($id);
-        })->via('delete');
+        $this->delete('/{id}', 'app\controllers\ContentController:deleteItem');
     });
 });

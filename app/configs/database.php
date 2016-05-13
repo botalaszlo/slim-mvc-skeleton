@@ -10,6 +10,7 @@ return array(
         'host' => '127.0.0.1',
         'username' => 'SlimSkeleton',
         'password' => 'vSKFy7mDc8fY4ZmF',
-        'db_name' => 'slim_skeleton'
+        'db_name' => 'slim_skeleton',
+        'tablePrefix' => 'tbl_',
     )
 );

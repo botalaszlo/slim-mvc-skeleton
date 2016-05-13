@@ -6,50 +6,93 @@
 
 namespace app\controllers;
 
-use app\controllers\BaseController;
+use app\lib\AbstractController;
 use app\models\ContentModel;
+use Interop\Container\ContainerInterface;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Description of RestController
- * 
- * This is a sample for the rest controller.
+ *
+ * Basic Rest controller
  * The model is configured in the constructor.
  * 
  * @author Bóta László <bota.laszlo.dev@outlook.com>
  * @version 1.0
- * @see BaseController
+ * @see app\lib\AbstractController
  */
-class RestController extends BaseController {
+class RestController extends AbstractController {
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct(ContainerInterface $ci) {
+        parent::__construct($ci);
         $this->model = new ContentModel();
     }
 
-    public function getAllItem() {
-        echo json_encode($this->model->findAllItems());
+    /**
+     * Get all items.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response object
+     * @throws \RuntimeException
+     */
+    public function getAllItems($request, $response, $args) {
+        return $response->withJson($this->model->findAll(), 200);
     }
 
-    public function getItem($id) {
-        echo json_encode($this->model->findItem($id));
+    /**
+     * Get one item.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response object
+     * @throws \RuntimeException
+     */
+    public function getItem($request, $response, $args) {
+        return $response->withJson($this->model->find((int) $args['id']), 201);
     }
 
-    public function createItem() {
-        $data = $this->getRequestBody();
-        $this->sendResponse(201, $this->model->insertItem($data['data']));
+    /**
+     * Create item.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response object
+     * @throws \RuntimeException
+     */
+    public function createItem($request, $response, $args) {
+        $data = $request->getParsedBody();
+        return $response->withJson($this->model->save($data['data']), 201);
     }
 
-    public function editItem($id) {
-        $data = $this->getRequestBody();
-        $this->sendResponse(204, $this->model->updateItem($id, $data['data']));
+    /**
+     * Edit item by id.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response object
+     * @throws \RuntimeException
+     */
+    public function editItem($request, $response, $args) {
+        $data = $request->getParsedBody();
+        return $response->withJson($this->model->save($data['data'], (int) $args['id']), 204);
     }
 
-    public function deleteItem($id) {
-        $this->sendResponse(204, $this->model->removeItem($id));
+    /**
+     * Delete item by id.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response object
+     * @throws \RuntimeException
+     */
+    public function deleteItem($request, $response, $args) {
+        return $response->withJson($this->model->delete((int) $args['id']), 200);
     }
-
-    protected function getRequestBody() {
-        return $this->request->getBody();
-    }
-
 }
