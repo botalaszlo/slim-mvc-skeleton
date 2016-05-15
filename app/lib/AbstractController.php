@@ -18,7 +18,7 @@ use Interop\Container\ContainerInterface;
  * @version 1.0
  * @see \Slim\Slim
  */
-class AbstractController {
+abstract class AbstractController {
 
     const NAMESPACE_SEPARATOR = '\\';
     const MODEL_DIRECTORY_NAMESPACE = 'app\models';

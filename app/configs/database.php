@@ -8,8 +8,8 @@
 return array(
     'database' => array(
         'host' => '127.0.0.1',
-        'username' => 'SlimSkeleton',
-        'password' => 'vSKFy7mDc8fY4ZmF',
+        'username' => 'root',
+        'password' => 'Yupi45',
         'db_name' => 'slim_skeleton',
         'tablePrefix' => 'tbl_',
     )
