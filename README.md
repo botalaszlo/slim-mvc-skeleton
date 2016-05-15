@@ -3,6 +3,8 @@ Slim MVC Skeleton
 
 Slim MVC Skeleton is a starter application which built in MVC architecture and it provides a basic REST functionality. It is based on the [Slim framework](http://www.slimframework.com/).
 
+[![Build Status](https://scrutinizer-ci.com/g/botalaszlo/slim-mvc-skeleton/badges/build.png?b=master)](https://scrutinizer-ci.com/g/botalaszlo/slim-mvc-skeleton/build-status/master)
+
 ##Installation
 
 Manually install Slim MVC Skeleton by **cloning this repo** and run `composer install`.
